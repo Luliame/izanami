@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Izanami",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
