@@ -1,11 +1,14 @@
 # izanami
 
-  projet d'app météo cross plateforme avec utilisation API en ionic.
+  Projet d'app météo cross plateforme en ionic avec utilisation d'une API.
+  
+## Liens utiles
   
   [Doc de L'API](https://openweathermap.org/current)
   
   [Doc ionic](https://ionicframework.com/docs)
   
+  [Cours](https://mavincent7.github.io/)
   
 ## Génération d'une blank app
   
