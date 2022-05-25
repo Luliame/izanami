@@ -4,6 +4,9 @@
   
   [Doc de L'API](https://openweathermap.org/current)
   
+  [Doc ionic](https://ionicframework.com/docs)
+  
+  
 ## Génération d'une blank app
   
 ```bash 
