@@ -1,5 +1,5 @@
 # izanami
-
+  Groupe : Maxence Desbouys & Guillaume Valentin
   Projet d'app météo cross plateforme en ionic avec utilisation d'une API.
   
 ## Liens utiles
