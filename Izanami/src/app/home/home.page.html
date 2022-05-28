@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Izanami
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,33 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Izanami</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div id="container" style="height: 100%; max-height: fit-content;">
+    
+    <ion-searchbar placeholder="Entrez votre ville" style="min-height: 10em; top: 0px"></ion-searchbar>
+    
+    <div style="height: 100%;">
+      <div>
+        <!-- <p style="font-size: xx-large;">⛅</p> -->
+        <ion-icon name="partly-sunny" style="font-size: 10em;"></ion-icon>
+        <p>30°C</p>
+        <p>localisation</p>
+      </div>
+      
+      <div>
+        <p>💧 70%</p>
+        <p>risque d'averces</p>
+      </div>
+
+      <!-- Round -->
+      <ion-button shape="round" routerLink="/week-prevision">
+        Prévisions sur 7j ☔
+      </ion-button>
+      <!-- <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
+    </div>
+
   </div>
 </ion-content>

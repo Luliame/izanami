@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'week-prevision',
+    loadChildren: () => import('./week-prevision/week-prevision.module').then( m => m.WeekPrevisionPageModule)
+  },
 ];
 
 @NgModule({
