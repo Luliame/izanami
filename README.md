@@ -23,3 +23,8 @@ Puis suivre les information du magicien 🧙‍♂️
 ionic serve
 ```
   
+## Générer des éléments  
+  
+```bash
+ionic generate
+```
