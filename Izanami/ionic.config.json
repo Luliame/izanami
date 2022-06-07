@@ -1,7 +1,8 @@
 {
   "name": "Izanami",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
