@@ -16,25 +16,13 @@
   <div id="container" style="height: 100%; max-height: fit-content;">
     
     <ion-searchbar placeholder="Entrez votre ville" style="min-height: 10em; top: 0px"></ion-searchbar>
-    
-    <div style="height: 100%;">
-      <div>
-        <!-- <p style="font-size: xx-large;">⛅</p> -->
-        <ion-icon name="{{visualisation}}" style="font-size: 10em;"></ion-icon>
-        <p>{{temperature}}</p>
-        <p>{{location}}</p>
-      </div>
-      
-      <div>
-        <p>💧 {{humidity}}</p>
-        <p>{{commentary}}</p>
-      </div>
+    <div>
 
-      <!-- Round -->
+      <app-weather-presenter></app-weather-presenter>
+
       <ion-button shape="round" routerLink="/week-prevision">
         Prévisions sur 7j ☔
       </ion-button>
-      <!-- <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
     </div>
 
   </div>
