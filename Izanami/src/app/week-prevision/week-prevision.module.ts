@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { WeekPrevisionPageRoutingModule } from './week-prevision-routing.module';
 
 import { WeekPrevisionPage } from './week-prevision.page';
+import { WeatherPresenterComponent } from '../weather-presenter/weather-presenter.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { WeekPrevisionPage } from './week-prevision.page';
     IonicModule,
     WeekPrevisionPageRoutingModule
   ],
-  declarations: [WeekPrevisionPage]
+  declarations: [
+    WeekPrevisionPage,
+    WeatherPresenterComponent
+  ]
 })
 export class WeekPrevisionPageModule {}
