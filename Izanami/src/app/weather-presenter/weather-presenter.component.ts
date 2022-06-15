@@ -17,6 +17,8 @@ export class WeatherPresenterComponent implements OnInit {
 
   public weather : IWeather;
 
+  public cities : Observable<lightCityInterface>;
+
   public visuList = [
     "sunny",
     "partly-sunny",
@@ -116,7 +118,7 @@ export class WeatherPresenterComponent implements OnInit {
 
   
   // Méthode de chargement de la météo selon la ville fournie en paramètre 
- loadWeather(city : string){
+ loadWeather(city : string) : IWeather{
     this._weatherService.getWeatherFromCity(city).toPromise().then( weather => {
         var i : IWeather = {
           temperature : weather.main.temp,
@@ -128,6 +130,15 @@ export class WeatherPresenterComponent implements OnInit {
         this.weather = i;
     }).catch(error => { console.log("loading error",error)});
   }
+
+  // méthode autocomplétion de Ville 
+  loadCity(search : string){
+    this._weatherService.searchforCities(search).toPromise().then( cities => {
+        this.cities = {cities}
+    }).catch(error = { console.log("error",error)});
+  }
+
+
 }
 
 export interface IWeather {
