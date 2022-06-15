@@ -15,10 +15,10 @@ export class WeatherServiceService {
    }
 
    // Récupère le temps pour une ville 
-   public getWeatherFromCity(city : string) : Observable<any>{
+   public getWeatherFromCity(city : string) : Observable<IDailyForecast>{
     let params = new HttpParams().set('q', city);
 
-     return this._http.get<any>('https://api.openweathermap.org/data/2.5/weather',{params});
+     return this._http.get<IDailyForecast>('https://api.openweathermap.org/data/2.5/weather',{params});
    }
 
    // search cities by cities name 

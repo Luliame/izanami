@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { WeatherServiceService } from 'src/services/weather-service.service';
+
 
 @Component({
   selector: 'app-weather-presenter',
@@ -12,6 +14,8 @@ export class WeatherPresenterComponent implements OnInit {
   public commentary;
   public location;
   public visualisation;
+
+  public weather : IWeather;
 
   public visuList = [
     "sunny",
@@ -45,7 +49,9 @@ export class WeatherPresenterComponent implements OnInit {
 
   }
 
-  constructor() 
+  constructor(
+    private _weatherService : WeatherServiceService
+  ) 
   {
 
     this.temperature = "🌡 30°C";
@@ -57,6 +63,34 @@ export class WeatherPresenterComponent implements OnInit {
 
   }
 
-  ngOnInit() {}
+  lambda = () => {
+    return true;
+  }
 
+  ngOnInit() {
+
+  }
+
+  
+  // Méthode de chargement de la météo selon la ville fournie en paramètre 
+ loadWeather(city : string){
+    this._weatherService.getWeatherFromCity(city).toPromise().then( weather => {
+        var i : IWeather = {
+          temperature : weather.main.temp,
+          humidity : weather.main.humidity,
+          commentary : weather.weather[0].description,
+          location : weather.name,
+          visualisation : weather.weather[0].description
+        };
+        this.weather = i;
+    }).catch(error => { console.log("loading error",error)});
+  }
+}
+
+export interface IWeather {
+    temperature : number,
+    humidity : number,
+    commentary ?: string,
+    location : string,
+    visualisation : string
 }
