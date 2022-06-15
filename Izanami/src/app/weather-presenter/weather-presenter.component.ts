@@ -71,6 +71,8 @@ export class WeatherPresenterComponent implements OnInit {
 
   }
 
+  
+  // Méthode de chargement de la météo selon la ville fournie en paramètre 
  loadWeather(city : string){
     this._weatherService.getWeatherFromCity(city).toPromise().then( weather => {
         var i : IWeather = {
