@@ -17,6 +17,9 @@ export class WeatherPresenterComponent implements OnInit {
 
   public weather ? : IWeather = null;
 
+  // TODO Maxence
+  // public cities : Observable<lightCityInterface>;
+
   public visuList = [
     "sunny",
     "partly-sunny",
@@ -193,6 +196,16 @@ export class WeatherPresenterComponent implements OnInit {
     // this.resolveHumidity();
     // this.resolveTemperature();
   }
+
+  // TODO Maxence
+  // // méthode autocomplétion de Ville 
+  // loadCity(search : string){
+  //   this._weatherService.searchforCities(search).toPromise().then( cities => {
+  //       this.cities = {cities}
+  //   }).catch(error = { console.log("error",error)});
+  // }
+
+
 }
 
 export interface IWeather {
