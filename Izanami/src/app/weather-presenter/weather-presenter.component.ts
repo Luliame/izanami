@@ -15,7 +15,7 @@ export class WeatherPresenterComponent implements OnInit {
   public location;
   public visualisation;
 
-  public weather : IWeather;
+  public weather ? : IWeather = null;
 
   public visuList = [
     "sunny",
@@ -59,11 +59,35 @@ export class WeatherPresenterComponent implements OnInit {
     return this.randomIntFromInterval(-10, 30);
   }
 
+  // resolveTemperature(temperature : number) {
+  //   if (temperature <= this.coldVal){
+  //     this.temperatureEmoji = this.coldEmoji;
+  //   }
+  //   else if(temperature >= this.hotVal){
+  //     this.temperatureEmoji = this.hotEmoji;
+  //   }
+  //   else{
+  //     this.temperatureEmoji = this.defaultTempEmoji;
+  //   }
+  // }
+
+  // resolveHumidity(humidity : number) {
+  //   if (humidity <= this.dryVal){
+  //     this.humidityEmoji = this.dryEmoji;
+  //   }
+  //   else if(humidity >= this.wetVal){
+  //     this.humidityEmoji = this.wetEmoji;
+  //   }
+  //   else{
+  //     this.humidityEmoji = this.defaultHumEmoji;
+  //   }
+  // }
+
   resolveTemperature() {
-    if (this.temperature <= this.coldVal){
+    if (this.weather.temperature <= this.coldVal){
       this.temperatureEmoji = this.coldEmoji;
     }
-    else if(this.temperature >= this.hotVal){
+    else if(this.weather.temperature >= this.hotVal){
       this.temperatureEmoji = this.hotEmoji;
     }
     else{
@@ -72,10 +96,10 @@ export class WeatherPresenterComponent implements OnInit {
   }
 
   resolveHumidity() {
-    if (this.humidity <= this.dryVal){
+    if (this.weather.humidity <= this.dryVal){
       this.humidityEmoji = this.dryEmoji;
     }
-    else if(this.humidity >= this.wetVal){
+    else if(this.weather.humidity >= this.wetVal){
       this.humidityEmoji = this.wetEmoji;
     }
     else{
@@ -83,50 +107,91 @@ export class WeatherPresenterComponent implements OnInit {
     }
   }
 
-  // isWet = () => {
-  //   return this.humidity >= this.wetVal
+  // resolveTemperature() {
+  //   if (this.temperature <= this.coldVal){
+  //     this.temperatureEmoji = this.coldEmoji;
+  //   }
+  //   else if(this.temperature >= this.hotVal){
+  //     this.temperatureEmoji = this.hotEmoji;
+  //   }
+  //   else{
+  //     this.temperatureEmoji = this.defaultTempEmoji;
+  //   }
   // }
-  // isDry = () => {
-  //   return this.humidity <= this.dryVal
-  // }
-  // isCold = () => {
-  //   return this.temperature <= this.coldVal
-  // }
-  // isHot = () => {
-  //   return this.temperature >= this.hotVal
+
+  // resolveHumidity() {
+  //   if (this.humidity <= this.dryVal){
+  //     this.humidityEmoji = this.dryEmoji;
+  //   }
+  //   else if(this.humidity >= this.wetVal){
+  //     this.humidityEmoji = this.wetEmoji;
+  //   }
+  //   else{
+  //     this.humidityEmoji = this.defaultHumEmoji;
+  //   }
   // }
 
   constructor(
     private _weatherService : WeatherServiceService
   ) 
   {
-    this.temperature = this.getTemperature();
+    // var weather : IWeather = this.loadWeather("Clermont-Ferrand");
+    
+    // this.temperature = weather.temperature;
     this.humidity = this.getHumidity();
-    // this.temperature = "🌡 30°C";
-    // this.humidity = "💧 60%";
+    // this.temperature = this.getTemperature();
+    // this.humidity = this.getHumidity();
+    
     this.commentary = "risque d'averces";
     this.location = "localisation";
     this.visualisation = this.visuList[Math.floor(Math.random() * this.visuList.length)];
   }
 
   ngOnInit() {
+
+    this.weather = {
+      temperature : 0,
+      humidity : 0,
+      commentary : "",
+      location : "",
+      visualisation : ""
+    };
+    
     this.resolveHumidity();
     this.resolveTemperature();
+
+    this.loadWeather("Clermont-Ferrand");
   }
 
   
   // Méthode de chargement de la météo selon la ville fournie en paramètre 
- loadWeather(city : string){
+  loadWeather(city : string){
+    // c'est pété !
     this._weatherService.getWeatherFromCity(city).toPromise().then( weather => {
-        var i : IWeather = {
-          temperature : weather.main.temp,
-          humidity : weather.main.humidity,
-          commentary : weather.weather[0].description,
-          location : weather.name,
-          visualisation : weather.weather[0].description
-        };
-        this.weather = i;
+      var i : IWeather = {
+        temperature : weather.main.temp,
+        humidity : weather.main.humidity,
+        commentary : weather.weather[0].description,
+        location : weather.name,
+        visualisation : weather.weather[0].description
+      };
+      this.weather = i;
+
+      this.resolveHumidity();
+      this.resolveTemperature();
     }).catch(error => { console.log("loading error",error)});
+    //
+
+    // var i : IWeather = {
+    //   temperature : this.getTemperature(),
+    //   humidity : this.getHumidity(),
+    //   commentary : "weather.weather[0].description",
+    //   location : "weather.name",
+    //   visualisation : "weather.weather[0].description"
+    // };
+    // this.weather = i;
+    // this.resolveHumidity();
+    // this.resolveTemperature();
   }
 }
 

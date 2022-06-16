@@ -4,19 +4,25 @@
     <ion-card-content>
       <p>Lundi</p>
       <div>
-        <ion-icon name="{{visualisation}}" style="font-size: 10em;"></ion-icon>
+        <ion-icon name="{{weather.visualisation}}" style="font-size: 10em;"></ion-icon>
       </div>
 
       <div>
-        <p style="font-size: 1.5em;">{{temperatureEmoji + temperature + "°C"}}</p>
-
-        <p style="font-size: 1.5em;">{{humidityEmoji + humidity + "%"}}</p>
+<!--         
+        <p style="font-size: 1.5em;">{{temperatureEmoji}}</p>
+        <p style="font-size: 1.5em;">{{humidityEmoji}}</p> -->
+<!--         
+        <p style="font-size: 1.5em;">{{weather.temperature}}</p>
+        <p style="font-size: 1.5em;">{{weather.humidity}}</p> -->
+        
+        <p style="font-size: 1.5em;">{{temperatureEmoji}} {{weather.temperature}} °C</p>
+        <p style="font-size: 1.5em;">{{humidityEmoji}} {{weather.humidity}} %</p>
       </div>
     </ion-card-content>
     
     <ion-card-header>
-      <ion-card-title>{{location}}</ion-card-title>
-      <ion-card-subtitle>{{commentary}}</ion-card-subtitle>
+      <ion-card-title>{{weather.location}}</ion-card-title>
+      <ion-card-subtitle>{{weather.commentary}}</ion-card-subtitle>
     </ion-card-header>
   </ion-card>
 </div>
