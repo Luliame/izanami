@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherServiceService } from 'src/services/weather-service.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { lightCityInterface, WeatherServiceService } from 'src/services/weather-service.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class WeatherPresenterComponent implements OnInit {
   public weather ? : IWeather = null;
 
   // TODO Maxence
-  // public cities : Observable<lightCityInterface>;
+  public cities = []; 
 
   public visuList = [
     "sunny",
@@ -198,12 +199,12 @@ export class WeatherPresenterComponent implements OnInit {
   }
 
   // TODO Maxence
-  // // méthode autocomplétion de Ville 
-  // loadCity(search : string){
-  //   this._weatherService.searchforCities(search).toPromise().then( cities => {
-  //       this.cities = {cities}
-  //   }).catch(error = { console.log("error",error)});
-  // }
+  // méthode autocomplétion de Ville 
+  loadCity(search : string){
+    this._weatherService.searchforCities(search).subscribe( {next: cities => {
+      this.cities = cities;
+    }, error: (error)=>{console.log(error);} });
+  }
 
 
 }
