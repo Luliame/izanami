@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { lightCityInterface, WeatherServiceService } from 'src/services/weather-service.service';
-
+import { WeatherServiceService } from 'src/services/weather-service.service';
+import {IWeather} from 'src/app/interfaces/IWeather';
+import { lightCityInterface } from '../interfaces/lightCityInterface';
 import { Geolocation } from '@capacitor/geolocation';
 
 // geoLoc
@@ -218,10 +219,10 @@ export class WeatherPresenterComponent implements OnInit {
 
 }
 
-export interface IWeather {
-    temperature : number,
-    humidity : number,
-    commentary ?: string,
-    location : string,
-    visualisation : string
-}
+// export interface IWeather {
+//     temperature : number,
+//     humidity : number,
+//     commentary ?: string,
+//     location : string,
+//     visualisation : string
+// }
