@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherServiceService } from 'src/services/weather-service.service';
 
+import { Geolocation } from '@capacitor/geolocation';
+
+// geoLoc
+const printCurrentPosition = async () => {
+  const coordinates = await Geolocation.getCurrentPosition();
+
+  console.log('Current position:', coordinates);
+};
 
 @Component({
   selector: 'app-weather-presenter',
@@ -151,6 +159,7 @@ export class WeatherPresenterComponent implements OnInit {
   }
 
   ngOnInit() {
+    printCurrentPosition();
 
     this.weather = {
       temperature : 0,
