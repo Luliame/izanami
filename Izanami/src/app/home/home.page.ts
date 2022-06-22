@@ -19,21 +19,25 @@ export class HomePage {
 
   // Méthode de chargement de la météo selon la ville fournie en paramètre 
   loadWeather(city : string){
-    // c'est pété !
+
     this._weatherService.getWeatherFromCity(city).toPromise().then( weather => {
+      var temp = weather.main.temp;
+      var visu = weather.weather[0].icon;
+
       var i : IWeather = {
-        temperature : weather.main.temp,
-        humidity : weather.main.humidity,
+        rawTemperature : temp,
+        rawHumidity : weather.main.humidity,
+        rawVisualisation : visu,
+
+        computedTemperature : weatherUtil.processTemperature(temp),
+        computedHumidity : weatherUtil.processHumidity(weather.main.humidity),
+        computedVisualisation : weatherUtil.processVisualisation(visu),
+
         commentary : weather.weather[0].description,
         location : weather.name,
-        visualisation : weather.weather[0].description,
-
-        computedTemperature : weatherUtil.processTemperature(weather.main.temp),
-        computedHumidity : weatherUtil.processHumidity(weather.main.humidity),
-        computedVisualisation : weatherUtil.processVisualisation(weather.weather[0].description)
       };
-      this.weather = i;
 
+      this.weather = i;
     }).catch(error => { console.log("loading error",error)});
   }
 }

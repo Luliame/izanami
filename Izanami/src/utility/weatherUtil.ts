@@ -1,53 +1,64 @@
 import { IWeather } from "src/app/interfaces/IWeather";
 
 export class weatherUtil{
-    // public visuList = [
-    //   "sunny",
-    //   "partly-sunny",
-    //   "cloudy",
-    //   "rainy",
-    //   "thunderstorm",
-    //
-    //   "cloudy-night",
-    //   "moon"
-    // ];
 
-  public static VISU_LIST = [
-    {
-        visu : "",
-        icon : "sunny"
-    },
-    {
-        visu : "",
-        icon : "partly-sunny"
-    },
-    {
-        visu : "",
-        icon : "cloudy"
-    },
-    {
-        visu : "",
-        icon : "rainy"
-    },
-    {
-        visu : "",
-        icon : "thunderstorm"
-    },
-    {
-        visu : "",
-        icon : "cloudy-night"
-    },
-    {
-        visu : "",
-        icon : "moon"
-    },
-  ];
+    public static DEFAULT_VISU = "cloud-offline-outline";
 
-  public static COLD_VAL = 0;
-  public static HOT_VAL = 25;
+    public static VISU_LIST = new Map<string, string>(
+    [
+        [
+            "01",
+            "sunny"
+        ],
+        [
+            "02",
+            "partly-sunny"
+        ],
+        [
+            "03",
+            "cloudy"
+        ],
+        [
+            "04", 
+            "cloudy"
+        ],
+        [
+            "09",
+            "rainy"
+        ],
+        [
+            "10",
+            "rainy"
+        ],
+        [
+            "11",
+            "thunderstorm"
+        ],
+        [
+            "13",
+            "snow-outline"
+        ],
+        [
+            "50",
+            "reorder-three-outline"
+        ],
 
-  public static DRY_VAL = 25;
-  public static WET_VAL = 75;
+        // [
+        //     "7",
+        //     "cloudy-night"
+        // ],
+        // [
+        //     "8",
+        //     "moon"
+        // ],
+    ]
+  );
+
+  public static COLD_BOUND = 0;
+  public static HOT_BOUND = 25;
+
+  public static DRY_BOUND = 25;
+  public static WET_BOUND = 75;
 
   public static COLD_EMOJI = "🥶 ";
   public static DEFAULT_TEMP_EMOJI = "🌡 ";
@@ -58,13 +69,18 @@ export class weatherUtil{
   public static WET_EMOJI = "🌊 ";
 
 
-  public static processTemperature(temperature:number):string {
-    let emoji = this.DEFAULT_TEMP_EMOJI;
+  public static CELSIUS = "°C";
+  public static FAHRENHEIM = "°F";
 
-    if (temperature <= this.COLD_VAL){
+
+  public static processTemperature(rawTemperature:number, unity:string = this.CELSIUS ):string {
+    var emoji = this.DEFAULT_TEMP_EMOJI;
+    var temperature = this.TemperatureConverter(rawTemperature, unity);
+
+    if (temperature <= this.COLD_BOUND){
         emoji = this.COLD_EMOJI;
     }
-    else if(temperature >= this.HOT_VAL){
+    else if(temperature >= this.HOT_BOUND){
         emoji = this.HOT_EMOJI;
     }
     else{
@@ -75,12 +91,12 @@ export class weatherUtil{
   }
 
   public static processHumidity(humidity:number):string {
-    let emoji = this.DEFAULT_HUM_EMOJI;
+    var emoji = this.DEFAULT_HUM_EMOJI;
 
-    if (humidity <= this.DRY_VAL){
+    if (humidity <= this.DRY_BOUND){
       emoji = this.DRY_EMOJI;
     }
-    else if(humidity >= this.WET_VAL){
+    else if(humidity >= this.WET_BOUND){
       emoji =  this.WET_EMOJI;
     }
     
@@ -88,6 +104,25 @@ export class weatherUtil{
   }
 
   public static processVisualisation(visualisation:string):string {
-    return "";
+    
+    var v = this.VISU_LIST.get(visualisation.slice(0, -1));
+
+    if (v == undefined)
+        return this.DEFAULT_VISU;
+        // return this.VISU_LIST.values().next().value;
+
+    return v;
+  }
+
+  // donne la température selon la mesure demander
+  public static TemperatureConverter(temperature:number, unityDesired:string) : number{
+      // Unité demandé 
+      switch(unityDesired){
+          case this.CELSIUS :
+              return Math.round(temperature - 273.15);
+          case  this.FAHRENHEIM :
+              return Math.round((temperature - 273.15)*9/5+32);
+          default : return temperature;
+      }
   }
 }
