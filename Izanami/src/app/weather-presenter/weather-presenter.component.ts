@@ -5,6 +5,10 @@ import {IWeather} from 'src/app/interfaces/IWeather';
 import { lightCityInterface } from '../interfaces/lightCityInterface';
 import { Geolocation } from '@capacitor/geolocation';
 
+// utilities
+import { unitTempeatureMeasurement } from 'src/utility/unitTemperatureMeasurement';
+
+
 // geoLoc
 const printCurrentPosition = async () => {
   const coordinates = await Geolocation.getCurrentPosition();
@@ -104,24 +108,35 @@ export class WeatherPresenterComponent implements OnInit {
     // this.loadWeather("Clermont-Ferrand");
   }
 
-  
-  // // Méthode de chargement de la météo selon la ville fournie en paramètre 
-  // loadWeather(city : string){
-  //   // c'est pété !
-  //   this._weatherService.getWeatherFromCity(city).toPromise().then( weather => {
-  //     var i : IWeather = {
-  //       temperature : weather.main.temp,
-  //       humidity : weather.main.humidity,
-  //       commentary : weather.weather[0].description,
-  //       location : weather.name,
-  //       visualisation : weather.weather[0].description
-  //     };
-  //     this.weather = i;
+  // Méthode de chargement de la météo selon la ville fournie en paramètre 
+  loadWeather(city : string){
+    // c'est pété !
+    this._weatherService.getWeatherFromCity(city).toPromise().then( weather => {
+      var i : IWeather = {
+        temperature :  unitTempeatureMeasurement.TemperatureTranslater(weather.main.temp,"Celsius"),
+        humidity : weather.main.humidity,
+        commentary : weather.weather[0].description,
+        location : weather.name,
+        visualisation : weather.weather[0].description
+      };
+      this.weather = i;
 
-  //     this.resolveHumidityEmoji();
-  //     this.resolveTemperatureEmoji();
-  //   }).catch(error => { console.log("loading error",error)});
-  // }
+      this.resolveHumidity();
+      this.resolveTemperature();
+    }).catch(error => { console.log("loading error",error)});
+    //
+
+    // var i : IWeather = {
+    //   temperature : this.getTemperature(),
+    //   humidity : this.getHumidity(),
+    //   commentary : "weather.weather[0].description",
+    //   location : "weather.name",
+    //   visualisation : "weather.weather[0].description"
+    // };
+    // this.weather = i;
+    // this.resolveHumidity();
+    // this.resolveTemperature();
+  }
 
   // méthode autocomplétion de Ville 
   loadCity(search : string){
