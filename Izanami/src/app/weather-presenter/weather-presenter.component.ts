@@ -5,6 +5,10 @@ import {IWeather} from 'src/app/interfaces/IWeather';
 import { lightCityInterface } from '../interfaces/lightCityInterface';
 import { Geolocation } from '@capacitor/geolocation';
 
+// utilities
+import { unitTempeatureMeasurement } from 'src/utility/unitTemperatureMeasurement';
+
+
 // geoLoc
 const printCurrentPosition = async () => {
   const coordinates = await Geolocation.getCurrentPosition();
@@ -183,7 +187,7 @@ export class WeatherPresenterComponent implements OnInit {
     // c'est pété !
     this._weatherService.getWeatherFromCity(city).toPromise().then( weather => {
       var i : IWeather = {
-        temperature : weather.main.temp,
+        temperature :  unitTempeatureMeasurement.TemperatureTranslater(weather.main.temp,"Celsius"),
         humidity : weather.main.humidity,
         commentary : weather.weather[0].description,
         location : weather.name,
