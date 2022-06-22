@@ -1,4 +1,5 @@
 export interface cityInterface{
+  
     "label": string,
     "score": number,
     "id": string,
