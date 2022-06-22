@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { WeatherServiceService } from 'src/services/weather-service.service';
 import {IWeather} from 'src/app/interfaces/IWeather';
@@ -11,6 +11,8 @@ const printCurrentPosition = async () => {
 
   console.log('Current position:', coordinates);
 };
+//
+
 
 @Component({
   selector: 'app-weather-presenter',
@@ -25,9 +27,8 @@ export class WeatherPresenterComponent implements OnInit {
   public location;
   public visualisation;
 
-  public weather ? : IWeather = null;
+  @Input() public weather : IWeather;
 
-  // TODO Maxence
   public cities = []; 
 
   public visuList = [
@@ -57,46 +58,7 @@ export class WeatherPresenterComponent implements OnInit {
   wetEmoji = "🌊 ";
   humidityEmoji = this.defaultHumEmoji;
 
-
-  randomIntFromInterval(min:number, max:number):number { // min and max included 
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
-  
-  getHumidity():number {
-    //TODO depuis l'appel api simplifié
-    return this.randomIntFromInterval(0, 100);
-  }
-  
-  getTemperature():number {
-    //TODO depuis l'appel api simplifié
-    return this.randomIntFromInterval(-10, 30);
-  }
-
-  // resolveTemperature(temperature : number) {
-  //   if (temperature <= this.coldVal){
-  //     this.temperatureEmoji = this.coldEmoji;
-  //   }
-  //   else if(temperature >= this.hotVal){
-  //     this.temperatureEmoji = this.hotEmoji;
-  //   }
-  //   else{
-  //     this.temperatureEmoji = this.defaultTempEmoji;
-  //   }
-  // }
-
-  // resolveHumidity(humidity : number) {
-  //   if (humidity <= this.dryVal){
-  //     this.humidityEmoji = this.dryEmoji;
-  //   }
-  //   else if(humidity >= this.wetVal){
-  //     this.humidityEmoji = this.wetEmoji;
-  //   }
-  //   else{
-  //     this.humidityEmoji = this.defaultHumEmoji;
-  //   }
-  // }
-
-  resolveTemperature() {
+  resolveTemperatureEmoji() {
     if (this.weather.temperature <= this.coldVal){
       this.temperatureEmoji = this.coldEmoji;
     }
@@ -108,7 +70,7 @@ export class WeatherPresenterComponent implements OnInit {
     }
   }
 
-  resolveHumidity() {
+  resolveHumidityEmoji() {
     if (this.weather.humidity <= this.dryVal){
       this.humidityEmoji = this.dryEmoji;
     }
@@ -120,45 +82,10 @@ export class WeatherPresenterComponent implements OnInit {
     }
   }
 
-  // resolveTemperature() {
-  //   if (this.temperature <= this.coldVal){
-  //     this.temperatureEmoji = this.coldEmoji;
-  //   }
-  //   else if(this.temperature >= this.hotVal){
-  //     this.temperatureEmoji = this.hotEmoji;
-  //   }
-  //   else{
-  //     this.temperatureEmoji = this.defaultTempEmoji;
-  //   }
-  // }
-
-  // resolveHumidity() {
-  //   if (this.humidity <= this.dryVal){
-  //     this.humidityEmoji = this.dryEmoji;
-  //   }
-  //   else if(this.humidity >= this.wetVal){
-  //     this.humidityEmoji = this.wetEmoji;
-  //   }
-  //   else{
-  //     this.humidityEmoji = this.defaultHumEmoji;
-  //   }
-  // }
-
   constructor(
     private _weatherService : WeatherServiceService
   ) 
-  {
-    // var weather : IWeather = this.loadWeather("Clermont-Ferrand");
-    
-    // this.temperature = weather.temperature;
-    this.humidity = this.getHumidity();
-    // this.temperature = this.getTemperature();
-    // this.humidity = this.getHumidity();
-    
-    this.commentary = "risque d'averces";
-    this.location = "localisation";
-    this.visualisation = this.visuList[Math.floor(Math.random() * this.visuList.length)];
-  }
+  { }
 
   ngOnInit() {
     printCurrentPosition();
@@ -171,44 +98,31 @@ export class WeatherPresenterComponent implements OnInit {
       visualisation : ""
     };
     
-    this.resolveHumidity();
-    this.resolveTemperature();
+    this.resolveHumidityEmoji();
+    this.resolveTemperatureEmoji();
 
-    this.loadWeather("Clermont-Ferrand");
+    // this.loadWeather("Clermont-Ferrand");
   }
 
   
-  // Méthode de chargement de la météo selon la ville fournie en paramètre 
-  loadWeather(city : string){
-    // c'est pété !
-    this._weatherService.getWeatherFromCity(city).toPromise().then( weather => {
-      var i : IWeather = {
-        temperature : weather.main.temp,
-        humidity : weather.main.humidity,
-        commentary : weather.weather[0].description,
-        location : weather.name,
-        visualisation : weather.weather[0].description
-      };
-      this.weather = i;
+  // // Méthode de chargement de la météo selon la ville fournie en paramètre 
+  // loadWeather(city : string){
+  //   // c'est pété !
+  //   this._weatherService.getWeatherFromCity(city).toPromise().then( weather => {
+  //     var i : IWeather = {
+  //       temperature : weather.main.temp,
+  //       humidity : weather.main.humidity,
+  //       commentary : weather.weather[0].description,
+  //       location : weather.name,
+  //       visualisation : weather.weather[0].description
+  //     };
+  //     this.weather = i;
 
-      this.resolveHumidity();
-      this.resolveTemperature();
-    }).catch(error => { console.log("loading error",error)});
-    //
+  //     this.resolveHumidityEmoji();
+  //     this.resolveTemperatureEmoji();
+  //   }).catch(error => { console.log("loading error",error)});
+  // }
 
-    // var i : IWeather = {
-    //   temperature : this.getTemperature(),
-    //   humidity : this.getHumidity(),
-    //   commentary : "weather.weather[0].description",
-    //   location : "weather.name",
-    //   visualisation : "weather.weather[0].description"
-    // };
-    // this.weather = i;
-    // this.resolveHumidity();
-    // this.resolveTemperature();
-  }
-
-  // TODO Maxence
   // méthode autocomplétion de Ville 
   loadCity(search : string){
     this._weatherService.searchforCities(search).subscribe( {next: cities => {
@@ -218,11 +132,3 @@ export class WeatherPresenterComponent implements OnInit {
 
 
 }
-
-// export interface IWeather {
-//     temperature : number,
-//     humidity : number,
-//     commentary ?: string,
-//     location : string,
-//     visualisation : string
-// }
