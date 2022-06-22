@@ -3,5 +3,9 @@ export interface IWeather {
     humidity : number,
     commentary ?: string,
     location : string,
-    visualisation : string
+    visualisation : string,
+
+    // computedTemperature : string,
+    // computedHumidity : string,
+    // computedVisualisation : string
 }
