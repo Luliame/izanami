@@ -40,6 +40,14 @@ export class WeatherServiceService {
       return this._http.get<lightCityInterface[]>('https://api-adresse.data.gouv.fr/search/',{params});
    }
 
+   public getCityByCoordinates(lat : number,long : number) : Observable<GouvReverseChange>{
+    let params = new HttpParams().set('lat', lat).set('lon',long);
+
+    return this._http.get<GouvReverseChange>('https://api-adresse.data.gouv.fr/reverse/',{params});
+   }
+
+
+
    // Récupère les prévisions météo pour des coordonés géographique  
    public weeklyWeatherForecastByCity(lat : number,long : number) : Observable<IDailyForecast> {
       let params = new HttpParams().set('lat', lat).set('lon',long).set('appId',API_Key);
@@ -50,75 +58,39 @@ export class WeatherServiceService {
 
 }
 
+export interface GouvReverseChange {
+  "types" : string,
+  "versions" : string,
+  "features" : feature[],
+  "attribution": string,
+  "licence": string,
+  "limit": number
+}
 
-// export interface cityInterface{
-  
-//     "label": string,
-//     "score": number,
-//     "id": string,
-//     "type": string,
-//     "name": string,
-//     "postcode": string,
-//     "citycode": string,
-//     "x": number,
-//     "y": number,
-//     "population": number,
-//     "city": string,
-//     "context": string,
-//     "importance": number
-  
-// }
-
-// export interface lightCityInterface{
-//   "city": string,
-//   "label": string,
-//   "name": string,
-//   "x": number,
-//   "y": number,
-// }
-
-
-// export interface IDailyForecast{
-//   "coord": {
-//     "lon": number,
-//     "lat": number
-//     },
-//   "weather": [
-//     {
-//         "id": number,
-//         "main": string,
-//         "description": string,
-//         "icon": string
-//     }
-//   ],
-//   "base": string,
-//   "main": {
-//     "temp": number,
-//     "feels_like": number,
-//     "temp_min": number,
-//     "temp_max": number,
-//     "pressure": number,
-//     "humidity": number,
-//     "sea_level": number,
-//     "grnd_level": number
-//   },
-//   "visibility": number,
-//   "wind": {
-//     "speed": number,
-//     "deg": number,
-//     "gust": number
-//   },
-//   "clouds": {
-//     "all": number
-//   },
-//   "dt": number,
-//   "sys": {
-//     "country": string,
-//     "sunrise": number,
-//     "sunset": number
-//   },
-//   "timezone": number,
-//   "id": number,
-//   "name": string,
-//   "cod": number
-// }
+export interface feature {
+  "type": string,
+  "geometry": {
+      "type": string,
+      "coordinates": [
+          number,
+          number
+      ]
+  },
+  "properties": {
+      "label": string,
+      "score": number,
+      "housenumber": string,
+      "id": string,
+      "name": string,
+      "postcode": string,
+      "citycode": string,
+      "x": number,
+      "y": number,
+      "city": string,
+      "context": string,
+      "type": string,
+      "importance": number,
+      "street": string,
+      "distance": number
+  }
+}
