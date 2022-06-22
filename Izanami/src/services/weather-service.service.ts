@@ -27,7 +27,7 @@ export class WeatherServiceService {
 
    // Récupère le temps pour une ville 
    public getWeatherFromCity(city : string) : Observable<IDailyForecast>{
-    let params = new HttpParams().set('q', city).set('appId',API_Key);
+    let params = new HttpParams().set('q', city).set('lang','fr').set('appId',API_Key);
 
 
      return this._http.get<IDailyForecast>('https://api.openweathermap.org/data/2.5/weather',{params});

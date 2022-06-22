@@ -5,9 +5,6 @@ import {IWeather} from 'src/app/interfaces/IWeather';
 import { lightCityInterface } from '../interfaces/lightCityInterface';
 import { Geolocation } from '@capacitor/geolocation';
 
-// utilities
-import { unitTempeatureMeasurement } from 'src/utility/unitTemperatureMeasurement';
-
 
 // geoLoc
 const printCurrentPosition = async () => {
