@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IWeather } from '../interfaces/IWeather';
 import { WeatherServiceService } from 'src/services/weather-service.service';
+import { weatherUtil } from 'src/utility/weatherUtil';
 
 @Component({
   selector: 'app-home',
@@ -10,59 +11,6 @@ import { WeatherServiceService } from 'src/services/weather-service.service';
 export class HomePage {
   
   public weather : IWeather;
-
-  public visuList = [
-    "sunny",
-    "partly-sunny",
-    "cloudy",
-    "rainy",
-    "thunderstorm",
-  
-    "cloudy-night",
-    "moon"
-  ];
-
-  coldVal = 0;
-  hotVal = 25;
-
-  dryVal = 25;
-  wetVal = 75;
-
-  coldEmoji = "🥶 ";
-  defaultTempEmoji = "🌡 ";
-  hotEmoji = "🥵 ";
-  temperatureEmoji = this.defaultTempEmoji;
-
-  dryEmoji = "🏜 ";
-  defaultHumEmoji = "💧 ";
-  wetEmoji = "🌊 ";
-  humidityEmoji = this.defaultHumEmoji;
-
-
-  resolveTemperatureEmoji() {
-    if (this.weather.temperature <= this.coldVal){
-      this.temperatureEmoji = this.coldEmoji;
-    }
-    else if(this.weather.temperature >= this.hotVal){
-      this.temperatureEmoji = this.hotEmoji;
-    }
-    else{
-      this.temperatureEmoji = this.defaultTempEmoji;
-    }
-  }
-
-  resolveHumidityEmoji() {
-    if (this.weather.humidity <= this.dryVal){
-      this.humidityEmoji = this.dryEmoji;
-    }
-    else if(this.weather.humidity >= this.wetVal){
-      this.humidityEmoji = this.wetEmoji;
-    }
-    else{
-      this.humidityEmoji = this.defaultHumEmoji;
-    }
-  }
-
 
   constructor(private _weatherService : WeatherServiceService) 
   {
@@ -78,12 +26,14 @@ export class HomePage {
         humidity : weather.main.humidity,
         commentary : weather.weather[0].description,
         location : weather.name,
-        visualisation : weather.weather[0].description
+        visualisation : weather.weather[0].description,
+
+        computedTemperature : weatherUtil.processTemperature(weather.main.temp),
+        computedHumidity : weatherUtil.processHumidity(weather.main.humidity),
+        computedVisualisation : weatherUtil.processVisualisation(weather.weather[0].description)
       };
       this.weather = i;
 
-      this.resolveHumidityEmoji();
-      this.resolveTemperatureEmoji();
     }).catch(error => { console.log("loading error",error)});
   }
 }

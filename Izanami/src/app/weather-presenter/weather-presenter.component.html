@@ -4,19 +4,12 @@
     <ion-card-content>
       <p>Lundi</p>
       <div>
-        <ion-icon name="{{weather.visualisation}}" style="font-size: 10em;"></ion-icon>
+        <ion-icon name="{{weather.computedVisualisation}}" style="font-size: 10em;"></ion-icon>
       </div>
 
       <div>
-<!--         
-        <p style="font-size: 1.5em;">{{temperatureEmoji}}</p>
-        <p style="font-size: 1.5em;">{{humidityEmoji}}</p> -->
-<!--         
-        <p style="font-size: 1.5em;">{{weather.temperature}}</p>
-        <p style="font-size: 1.5em;">{{weather.humidity}}</p> -->
-        
-        <p style="font-size: 1.5em;">{{temperatureEmoji}} {{weather.temperature}} °C</p>
-        <p style="font-size: 1.5em;">{{humidityEmoji}} {{weather.humidity}} %</p>
+        <p style="font-size: 1.5em;">{{weather.computedTemperature}}</p>
+        <p style="font-size: 1.5em;">{{weather.computedHumidity}}</p>
       </div>
     </ion-card-content>
     

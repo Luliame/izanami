@@ -5,7 +5,7 @@ export interface IWeather {
     location : string,
     visualisation : string,
 
-    // computedTemperature : string,
-    // computedHumidity : string,
-    // computedVisualisation : string
+    computedTemperature : string,
+    computedHumidity : string,
+    computedVisualisation : string
 }
