@@ -34,6 +34,7 @@ export class WeatherServiceService {
     return this._http.get<lightCityInterface[]>('https://api-adresse.data.gouv.fr/search/',{params});
   }
   
+  // Récupère la ville depuis la géolocalisation
   public getCityByCoordinates(lat : number,long : number) : Observable<GouvReverseChange>{
     let params = new HttpParams().set('lat', lat).set('lon',long);
     

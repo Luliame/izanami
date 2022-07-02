@@ -19,8 +19,6 @@ export class WeatherPresenterComponent implements OnInit {
   
   @Input() public weather : IWeather;
   
-  public cities = []; 
-  
   constructor(
     private _weatherService : WeatherServiceService
     ) 
@@ -28,14 +26,6 @@ export class WeatherPresenterComponent implements OnInit {
     
     ngOnInit() {
     }
-    
-    // méthode autocomplétion de Ville 
-    loadCity(search : string){
-      this._weatherService.searchforCities(search).subscribe( {next: cities => {
-        this.cities = cities;
-      }, error: (error)=>{console.log(error);} });
-    }
-    
     
   }
   
