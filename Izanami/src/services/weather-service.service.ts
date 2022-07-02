@@ -55,7 +55,12 @@ export class WeatherServiceService {
       return this._http.get<IDailyForecast>('api.openweathermap.org/data/2.5/forecast',{params});
    }
 
-
+   // Récupère la météo selon une latitude/longitude
+   public weatherForecastByGeoLocation(lat : number,long : number){
+    let params = new HttpParams().set('lat', lat).set('lon',long).set('appId',API_Key);
+    
+    return this._http.get<IDailyForecast>('https://api.openweathermap.org/data/2.5/weather',{params});
+   }
 }
 
 export interface GouvReverseChange {

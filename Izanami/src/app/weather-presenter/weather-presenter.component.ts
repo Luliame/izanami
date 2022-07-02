@@ -3,18 +3,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { WeatherServiceService } from 'src/services/weather-service.service';
 import {IWeather} from 'src/app/interfaces/IWeather';
 import { lightCityInterface } from '../interfaces/lightCityInterface';
-import { Geolocation } from '@capacitor/geolocation';
-
-// utilities
-import { unitTempeatureMeasurement } from 'src/utility/unitTemperatureMeasurement';
-
-
-// geoLoc
-const printCurrentPosition = async () => {
-  const coordinates = await Geolocation.getCurrentPosition();
-
-  console.log('Current position:', coordinates);
-};
 
 @Component({
   selector: 'app-weather-presenter',
@@ -165,20 +153,6 @@ export class WeatherPresenterComponent implements OnInit {
   }
 
   ngOnInit() {
-    printCurrentPosition();
-
-    this.weather = {
-      temperature : 0,
-      humidity : 0,
-      commentary : "",
-      location : "",
-      visualisation : ""
-    };
-    
-    this.resolveHumidity();
-    this.resolveTemperature();
-
-    this.loadWeather("Clermont-Ferrand");
   }
 
   
