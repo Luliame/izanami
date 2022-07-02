@@ -1,7 +1,11 @@
 export interface IWeather {
-    temperature : number,
-    humidity : number,
+    rawTemperature : number,
+    rawHumidity : number,
     commentary ?: string,
     location : string,
-    visualisation : string
+    rawVisualisation : string,
+
+    computedTemperature : string,
+    computedHumidity : string,
+    computedVisualisation : string
 }

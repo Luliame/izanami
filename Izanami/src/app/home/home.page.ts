@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { IWeather } from '../interfaces/IWeather';
+import { WeatherServiceService } from 'src/services/weather-service.service';
+import { weatherUtil } from 'src/utility/weatherUtil';
 
 // geoLoc
 import { Geolocation } from '@capacitor/geolocation';
