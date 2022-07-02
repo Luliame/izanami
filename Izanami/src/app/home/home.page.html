@@ -12,18 +12,18 @@
       <ion-title size="large">Izanami</ion-title>
     </ion-toolbar>
   </ion-header>
-
+  
   <div id="container" style="height: 100%; max-height: fit-content;">
     
     <ion-searchbar placeholder="Entrez votre ville" style="min-height: 10em; top: 0px"></ion-searchbar>
     <div>
-
+      
       <app-weather-presenter [weather]="weather"></app-weather-presenter>
-
+      
       <ion-button shape="round" routerLink="/week-prevision">
         Prévisions sur 7j ☔
       </ion-button>
     </div>
-
+    
   </div>
 </ion-content>

@@ -10,31 +10,32 @@ import { lightCityInterface } from '../interfaces/lightCityInterface';
   styleUrls: ['./weather-presenter.component.scss'],
 })
 export class WeatherPresenterComponent implements OnInit {
-
+  
   public temperature;
   public humidity;
   public commentary;
   public location;
   public visualisation;
-
+  
   @Input() public weather : IWeather;
-
+  
   public cities = []; 
-
+  
   constructor(
     private _weatherService : WeatherServiceService
-  ) 
-  { }
-
-  ngOnInit() {
+    ) 
+    { }
+    
+    ngOnInit() {
+    }
+    
+    // méthode autocomplétion de Ville 
+    loadCity(search : string){
+      this._weatherService.searchforCities(search).subscribe( {next: cities => {
+        this.cities = cities;
+      }, error: (error)=>{console.log(error);} });
+    }
+    
+    
   }
-
-  // méthode autocomplétion de Ville 
-  loadCity(search : string){
-    this._weatherService.searchforCities(search).subscribe( {next: cities => {
-      this.cities = cities;
-    }, error: (error)=>{console.log(error);} });
-  }
-
-
-}
+  
