@@ -1,21 +1,44 @@
 <div class="presenter" style="display: flex; align-items: center; justify-content: center; text-align: center;">
   <ion-card style="padding: 2.5em;">
     
-    <ion-card-content>
-      <p>Lundi</p>
-      <div>
-        <ion-icon name="{{weather.computedVisualisation}}" style="font-size: 10em;"></ion-icon>
-      </div>
+    <ng-container *ngIf="weather">
+      <ion-card-content>
+        <p>Lundi</p>
+        <div>
+          <ng-container *ngIf="weather.computedVisualisation">
+            <ion-icon name="{{weather.computedVisualisation}}" style="font-size: 10em;"></ion-icon>
+          </ng-container>
+          <!-- <ion-icon name="{{weather.computedVisualisation}}" style="font-size: 10em;"></ion-icon> -->
+        </div>
+        
+        <div>
+          
+          <ng-container *ngIf="weather.computedTemperature">
+            <p style="font-size: 1.5em;">{{weather.computedTemperature}}</p>
+          </ng-container>
+          <ng-container *ngIf="weather.computedHumidity">
+            <p style="font-size: 1.5em;">{{weather.computedHumidity}}</p>
+          </ng-container>
+          
+          <!-- <p style="font-size: 1.5em;">{{weather.computedTemperature}}</p>
+            <p style="font-size: 1.5em;">{{weather.computedHumidity}}</p> -->
+          </div>
+        </ion-card-content>
+        
+        <ion-card-header>
+          <ng-container *ngIf="weather.location">
+            <ion-card-title>{{weather.location}}</ion-card-title>
+          </ng-container>
+          <ng-container *ngIf="weather.commentary">
+            <ion-card-subtitle>{{weather.commentary}}</ion-card-subtitle>
+          </ng-container>
+          
+          <!-- <ion-card-title>{{weather.location}}</ion-card-title>
+            <ion-card-subtitle>{{weather.commentary}}</ion-card-subtitle> -->
+      </ion-card-header>
+          
+    </ng-container>
       
-      <div>
-        <p style="font-size: 1.5em;">{{weather.computedTemperature}}</p>
-        <p style="font-size: 1.5em;">{{weather.computedHumidity}}</p>
-      </div>
-    </ion-card-content>
-    
-    <ion-card-header>
-      <ion-card-title>{{weather.location}}</ion-card-title>
-      <ion-card-subtitle>{{weather.commentary}}</ion-card-subtitle>
-    </ion-card-header>
   </ion-card>
 </div>
+    
