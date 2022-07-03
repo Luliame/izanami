@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Izanami
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Izanami</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <div id="container" style="height: 100%; max-height: fit-content;">
+    
+    <ion-searchbar placeholder="Entrez votre ville" style="min-height: 10em; top: 0px"></ion-searchbar>
+    <div>
+      
+      <app-weather-presenter [weather]="weather"></app-weather-presenter>
+      
+      <ion-button shape="round" routerLink="/week-prevision">
+        Prévisions sur 7j ☔
+      </ion-button>
+    </div>
+    
+  </div>
+</ion-content>
