@@ -44,7 +44,7 @@ export class WeatherServiceService {
   
   
   // Récupère les prévisions météo pour des coordonés géographique  
-  public weeklyWeatherForecastByCity(lat : number,long : number) : Observable<IDailyForecast> {
+  public weeklyWeatherForecastByGeolocation(lat : number,long : number) : Observable<IDailyForecast> {
     let params = new HttpParams().set('lat', lat).set('lon',long).set('appId',API_Key);
     
     return this._http.get<IDailyForecast>('api.openweathermap.org/data/2.5/forecast',{params});
